@@ -40,6 +40,10 @@ public class Pile {
             throw new IllegalArgumentException("Rows & columns must be 1 or greater.");
         }
 
+        if (images.length < 1) {
+            throw new IllegalArgumentException("At least one image is required.");
+        }
+
         // get rows, cols, and total cells
         this.rows = rows;
         this.cols = cols;
@@ -114,6 +118,10 @@ public class Pile {
             throw new IllegalArgumentException("Length must be at least 1 pixel or greater.");
         }
 
+        if (images.length < 1) {
+            throw new IllegalArgumentException("At least one image is required.");
+        }
+
         // get rows, cols, and total cells
         this.length = length;
         this.rows = rows;
@@ -141,6 +149,10 @@ public class Pile {
      * @param images {@link java.util.ArrayList} of BufferedImages
      */
     public Pile(BufferedImage[] images) {
+        if (images.length < 1) {
+            throw new IllegalArgumentException("At least one image is required.");
+        }
+
         // get length based off first image in list
         BufferedImage baseImage = images[0];
         this.length = Math.max(baseImage.getHeight(), baseImage.getHeight());
