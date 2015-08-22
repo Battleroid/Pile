@@ -24,7 +24,7 @@ public class Pile {
     private Graphics2D g;
     private BufferedImage output;
     private ArrayList<BufferedImage> images = new ArrayList<>();
-    private final Color defaultColor = Color.BLACK;
+    private final static Color defaultColor = Color.BLACK;
 
     /**
      * Create new Pile object based off the number of rows, columns, and image
@@ -279,7 +279,7 @@ public class Pile {
      * Clear entire summary image to default color ({@link java.awt.Color#BLACK}).
      */
     public void clearPile() {
-        this.g.setColor(this.defaultColor);
+        this.g.setColor(defaultColor);
         Dimension dim = this.getDimensions();
         g.fillRect(0, 0, dim.width, dim.height);
     }
