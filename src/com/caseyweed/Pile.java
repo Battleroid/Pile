@@ -23,7 +23,7 @@ public class Pile {
     private int length;
     private Graphics2D g;
     private BufferedImage output;
-    private ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+    private ArrayList<BufferedImage> images = new ArrayList<>();
     private Color defaultColor = Color.BLACK;
 
     /**
@@ -192,8 +192,8 @@ public class Pile {
         this.rows = (int) c;
         this.cols = (int) c;
 
-        // create fake grid representative of the grid to be made, remove the
-        // bottom most row if it is completely empty
+        /* create fake grid representative of the grid to be made, remove the
+        bottom most row if it is completely empty */
         for (int i = 0; i < this.rows; i++) {
             int clear = 0;
             for (int j = 0; j < this.cols; j++) {
@@ -213,7 +213,7 @@ public class Pile {
         this.output = new BufferedImage(this.length * this.cols, this.length * this.rows, BufferedImage.TYPE_INT_RGB);
         this.g = this.output.createGraphics();
 
-        //
+        // update the graphics
         this.updateGraphics();
     }
 
@@ -243,6 +243,8 @@ public class Pile {
                     imageIndex = i * cols + j;
                     if (imageIndex < this.images.size()) {
                         this.g.drawImage(this.images.get(imageIndex), j * this.length, i * this.length, this.length, this.length, null);
+                    } else {
+                        break;
                     }
                 }
             }
@@ -372,7 +374,7 @@ public class Pile {
 
     /**
      * Get the number of columns.
-     * @return Number of columns in the grid.
+     * @return Number of columns
      */
     public int getCols() {
         return cols;
@@ -399,7 +401,7 @@ public class Pile {
 
     /**
      * Get the grid cell size in pixels.
-     * @return Length of grid cell size.
+     * @return Grid cell size
      */
     public int getLength() {
         return length;
@@ -425,7 +427,7 @@ public class Pile {
 
     /**
      * Get the {@link java.util.ArrayList} of BufferedImages.
-     * @return BufferedImages {@link java.util.ArrayList}
+     * @return {@link java.util.ArrayList} of BufferedImages
      */
     public ArrayList<BufferedImage> getImages() {
         return images;
@@ -443,11 +445,6 @@ public class Pile {
 
     /**
      * Set images to a new list of BufferedImages.
-     * <br>
-     * <b>Note:</b> If you have more images in your list than there are grid
-     * cells ({@link Pile#total}) only those up to the total grid cells
-     * available will be displayed unless you use {@link Pile#selfAdjust()}.
-     * @param images {@link java.util.ArrayList} of BufferedImages to be set
      */
     public void setImages(ArrayList<BufferedImage> images) {
         this.images = images;
