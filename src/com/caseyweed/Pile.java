@@ -439,7 +439,7 @@ public class Pile {
      */
     public void setLength(int length) throws IllegalArgumentException {
         if (length < 1) {
-            throw new IllegalArgumentException("Length must be 1 or more");
+            throw new IllegalArgumentException("Length must be 1 or more.");
         }
 
         // get rows, cols, and total cells
@@ -459,6 +459,20 @@ public class Pile {
         return images;
     }
 
+    /**
+     * Set images to a new list of BufferedImages.
+     *
+     * @param images Replacement ArrayList of images
+     */
+    public void setImages(ArrayList<BufferedImage> images) {
+        this.images = images;
+    }
+
+    /**
+     * Set images to BufferedImage[] array.
+     *
+     * @param images Replacement array of images
+     */
     public void setImages(BufferedImage[] images) {
         this.images.clear();
         Collections.addAll(this.images, images);
@@ -475,9 +489,16 @@ public class Pile {
     }
 
     /**
-     * Set images to a new list of BufferedImages.
+     * Get the output BufferedImage for the pile.
+     *
+     * @return BufferedImage of the pile
      */
-    public void setImages(ArrayList<BufferedImage> images) {
-        this.images = images;
+    public BufferedImage getOutput() {
+        return output;
+    }
+
+    public void showPreview() {
+        PreviewPanel pp = new PreviewPanel(this.output, "Preview");
+        pp.setVisible(true);
     }
 }
