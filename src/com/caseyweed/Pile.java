@@ -163,8 +163,8 @@ public class Pile {
         this.rows = (int) c;
         this.cols = (int) c;
 
-        // create fake grid representative of the grid to be made, remove the
-        // bottom most row if it is completely empty
+        /* create fake grid representative of the grid to be made, remove the
+        bottom most row if it is completely empty */
         for (int i = 0; i < this.rows; i++) {
             int clear = 0;
             for (int j = 0; j < this.cols; j++) {
