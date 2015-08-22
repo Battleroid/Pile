@@ -15,7 +15,7 @@ import java.util.Collections;
  * possibilities are truly limitless.
  *
  * @author Casey Weed
- * @version 1.0
+ * @version 1.1
  */
 public class Pile {
     private final static Color defaultColor = Color.BLACK;
@@ -460,6 +460,15 @@ public class Pile {
     }
 
     /**
+     * Set images to a new list of BufferedImages.
+     *
+     * @param images Replacement ArrayList of images
+     */
+    public void setImages(ArrayList<BufferedImage> images) {
+        this.images = images;
+    }
+
+    /**
      * Set images to BufferedImage[] array.
      *
      * @param images Replacement array of images
@@ -467,15 +476,6 @@ public class Pile {
     public void setImages(BufferedImage[] images) {
         this.images.clear();
         Collections.addAll(this.images, images);
-    }
-
-    /**
-     * Set images to a new list of BufferedImages.
-     *
-     * @param images Replacement ArrayList of images
-     */
-    public void setImages(ArrayList<BufferedImage> images) {
-        this.images = images;
     }
 
     /**
