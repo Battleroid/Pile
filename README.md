@@ -8,6 +8,8 @@ Pile images into a single image via stitching, as simple as that is I found a wa
 
 See [releases][rel] for JARs ready for importing.
 
+[rel]: https://github.com/Battleroid/Pile/releases
+
 ### Documentation & Wiki
 
 I've tried my best to fill out descriptive information for the Javadocs. Those by the way can be found [here][javadocs].
