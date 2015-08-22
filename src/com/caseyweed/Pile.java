@@ -460,15 +460,6 @@ public class Pile {
     }
 
     /**
-     * Set images to a new list of BufferedImages.
-     *
-     * @param images Replacement ArrayList of images
-     */
-    public void setImages(ArrayList<BufferedImage> images) {
-        this.images = images;
-    }
-
-    /**
      * Set images to BufferedImage[] array.
      *
      * @param images Replacement array of images
@@ -476,6 +467,15 @@ public class Pile {
     public void setImages(BufferedImage[] images) {
         this.images.clear();
         Collections.addAll(this.images, images);
+    }
+
+    /**
+     * Set images to a new list of BufferedImages.
+     *
+     * @param images Replacement ArrayList of images
+     */
+    public void setImages(ArrayList<BufferedImage> images) {
+        this.images = images;
     }
 
     /**
@@ -497,6 +497,9 @@ public class Pile {
         return output;
     }
 
+    /**
+     * Show PreviewPanel of the current pile.
+     */
     public void showPreview() {
         PreviewPanel pp = new PreviewPanel(this.output, "Preview");
         pp.setVisible(true);
