@@ -30,8 +30,9 @@ public class Pile {
      * Create new Pile object based off the number of rows, columns, and image
      * list. The longest side of the first image in the image list will be used
      * to establish the grid cell size.
-     * @param rows Number of rows
-     * @param cols Number of columns
+     *
+     * @param rows   Number of rows
+     * @param cols   Number of columns
      * @param images {@link java.util.ArrayList} of BufferedImages
      * @throws IllegalArgumentException
      */
@@ -70,12 +71,13 @@ public class Pile {
      * Create Pile object based off lenght, rows, and columns. Image list is
      * initially empty. Images can be added at will using {@link Pile#addImage(BufferedImage)}
      * or set using {@link Pile#setImages(ArrayList)}.
+     *
+     * @param length Length of grid cells
+     * @param rows   Number of rows
+     * @param cols   Number of columns
+     * @throws IllegalArgumentException
      * @see Pile#Pile(int, int, BufferedImage[])
      * @see Pile#addImage(BufferedImage)
-     * @param length Length of grid cells
-     * @param rows Number of rows
-     * @param cols Number of columns
-     * @throws IllegalArgumentException
      */
     public Pile(int length, int rows, int cols) throws IllegalArgumentException {
         if (rows < 1 || cols < 1) {
@@ -102,12 +104,13 @@ public class Pile {
 
     /**
      * Create Pile object specifying the length, rows, columns, and images.
-     * @see Pile#Pile(int, int, BufferedImage[])
+     *
      * @param length Length of grid cells in pixels
-     * @param rows Number of rows
-     * @param cols Number of columns
+     * @param rows   Number of rows
+     * @param cols   Number of columns
      * @param images {@link java.util.ArrayList} of BufferedImages
      * @throws IllegalArgumentException
+     * @see Pile#Pile(int, int, BufferedImage[])
      */
     public Pile(int length, int rows, int cols, BufferedImage[] images) throws IllegalArgumentException {
         if (rows < 1 || cols < 1) {
@@ -146,6 +149,7 @@ public class Pile {
      * image as the length for all grid cells. The shape of the grid will be
      * determined using the number of images closest to the nearest perfect square.
      * If there are empty rows they will be removed.
+     *
      * @param images {@link java.util.ArrayList} of BufferedImages
      */
     public Pile(BufferedImage[] images) {
@@ -232,6 +236,7 @@ public class Pile {
     /**
      * Update graphics ({@link Pile#g}), optionally wrapping through the images.
      * For example, 0..10, restarts at index of 0 until grid is filled.
+     *
      * @param wrap Whether or not to wrap
      */
     public void updateGraphics(boolean wrap) {
@@ -281,6 +286,7 @@ public class Pile {
 
     /**
      * Clear entire summary image to color specified ({@link java.awt.Color}).
+     *
      * @param bg Color to be used as background
      */
     public void clearPile(Color bg) {
@@ -293,6 +299,7 @@ public class Pile {
      * Add image to the current image list, but only doing so if there is a
      * valid number of openings available based on the grid size. For example,
      * six images will not fit in a 2x2 grid, therefore the images are dropped.
+     *
      * @param image Image to be added to the list
      */
     public void addImage(BufferedImage image) {
@@ -301,10 +308,11 @@ public class Pile {
 
     /**
      * Optionally update the summary image if specified.
-     * @see Pile#addImage(BufferedImage)
-     * @param image Image to be added to the list
+     *
+     * @param image  Image to be added to the list
      * @param update Whether or not to update the summary image without
      *               wrapping.
+     * @see Pile#addImage(BufferedImage)
      */
     public void addImage(BufferedImage image, boolean update) {
         this.images.add(image);
@@ -315,10 +323,11 @@ public class Pile {
 
     /**
      * Optionally update the summary image and wrap if specified.
-     * @see Pile#addImage(BufferedImage)
-     * @param image Image to be added to the list
+     *
+     * @param image  Image to be added to the list
      * @param update Whether or not to update the graphics
-     * @param wrap Whether or not to wrap the images
+     * @param wrap   Whether or not to wrap the images
+     * @see Pile#addImage(BufferedImage)
      */
     public void addImage(BufferedImage image, boolean update, boolean wrap) {
         this.images.add(image);
@@ -330,6 +339,7 @@ public class Pile {
     /**
      * Saves entire Pile to location using String, which is then
      * used in a File object.
+     *
      * @param filename String for location of Pile to be saved
      * @throws IOException
      */
@@ -339,6 +349,7 @@ public class Pile {
 
     /**
      * Save entire Pile to location using File object.
+     *
      * @param fileLocation Location for Pile to be saved
      * @throws IOException
      */
@@ -349,6 +360,7 @@ public class Pile {
     /**
      * Returns a new Dimension object for the total width and height pixel
      * length of the entire graphics object.
+     *
      * @return Dimension
      */
     public Dimension getDimensions() {
@@ -359,6 +371,7 @@ public class Pile {
 
     /**
      * Get the number of rows.
+     *
      * @return Number of rows in grid
      */
     public int getRows() {
@@ -367,8 +380,9 @@ public class Pile {
 
     /**
      * Set the number of rows post initialization.
-     * @throws IllegalArgumentException
+     *
      * @param rows New amount of rows
+     * @throws IllegalArgumentException
      */
     public void setRows(int rows) throws IllegalArgumentException {
         if (rows < 1) {
@@ -386,6 +400,7 @@ public class Pile {
 
     /**
      * Get the number of columns.
+     *
      * @return Number of columns
      */
     public int getCols() {
@@ -394,6 +409,7 @@ public class Pile {
 
     /**
      * Set the number of columns post initialization.
+     *
      * @param cols New number of columns
      * @throws IllegalArgumentException
      */
@@ -413,6 +429,7 @@ public class Pile {
 
     /**
      * Get the grid cell size in pixels.
+     *
      * @return Grid cell size
      */
     public int getLength() {
@@ -421,6 +438,7 @@ public class Pile {
 
     /**
      * Set the new length of each grid cell in pixels.
+     *
      * @param length Pixel length of grid cells
      * @throws IllegalArgumentException
      */
@@ -439,6 +457,7 @@ public class Pile {
 
     /**
      * Get the {@link java.util.ArrayList} of BufferedImages.
+     *
      * @return {@link java.util.ArrayList} of BufferedImages
      */
     public ArrayList<BufferedImage> getImages() {
