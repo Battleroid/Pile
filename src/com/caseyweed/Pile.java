@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Pile will create a grid of images on a Graphics2D object.
@@ -479,5 +480,10 @@ public class Pile {
      */
     public void setImages(ArrayList<BufferedImage> images) {
         this.images = images;
+    }
+
+    public void setImages(BufferedImage[] images) {
+        this.images.clear();
+        Collections.addAll(this.images, images);
     }
 }
