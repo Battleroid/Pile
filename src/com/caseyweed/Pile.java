@@ -1,7 +1,5 @@
 package com.caseyweed;
 
-import sun.text.resources.lt.CollationData_lt;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,6 +18,7 @@ import java.util.Collections;
  * @version 1.0
  */
 public class Pile {
+    private final static Color defaultColor = Color.BLACK;
     private int rows;
     private int cols;
     private int total;
@@ -27,7 +26,6 @@ public class Pile {
     private Graphics2D g;
     private BufferedImage output;
     private ArrayList<BufferedImage> images = new ArrayList<>();
-    private final static Color defaultColor = Color.BLACK;
 
     /**
      * Create new Pile object based off the number of rows, columns, and image
@@ -461,6 +459,11 @@ public class Pile {
         return images;
     }
 
+    public void setImages(BufferedImage[] images) {
+        this.images.clear();
+        Collections.addAll(this.images, images);
+    }
+
     /**
      * Remove the last image in the image list.
      */
@@ -476,10 +479,5 @@ public class Pile {
      */
     public void setImages(ArrayList<BufferedImage> images) {
         this.images = images;
-    }
-
-    public void setImages(BufferedImage[] images) {
-        this.images.clear();
-        Collections.addAll(this.images, images);
     }
 }
