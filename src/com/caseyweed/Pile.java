@@ -1,5 +1,7 @@
 package com.caseyweed;
 
+import sun.text.resources.lt.CollationData_lt;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -60,9 +62,7 @@ public class Pile {
         this.g = this.output.createGraphics();
 
         // add all images to list
-        for (int x = 0; x < images.length && x < this.total; x++) {
-            this.images.add(images[x]);
-        }
+        Collections.addAll(this.images, images);
 
         // clear and update graphics
         this.updateGraphics();
@@ -137,9 +137,7 @@ public class Pile {
         this.g = this.output.createGraphics();
 
         // add all images
-        for (int x = 0; x < images.length && x < this.total; x++) {
-            this.images.add(images[x]);
-        }
+        Collections.addAll(this.images, images);
 
         // clear and update graphics
         this.updateGraphics();
@@ -190,9 +188,7 @@ public class Pile {
         this.g = this.output.createGraphics();
 
         // add all images
-        for (int x = 0; x < images.length && x < this.total; x++) {
-            this.images.add(images[x]);
-        }
+        Collections.addAll(this.images, images);
 
         // clear and update graphics
         this.updateGraphics();
