@@ -24,7 +24,7 @@ public class Pile {
     private Graphics2D g;
     private BufferedImage output;
     private ArrayList<BufferedImage> images = new ArrayList<>();
-    private Color defaultColor = Color.BLACK;
+    private final Color defaultColor = Color.BLACK;
 
     /**
      * Create new Pile object based off the number of rows, columns, and image
