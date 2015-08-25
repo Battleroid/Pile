@@ -2,6 +2,7 @@ package com.caseyweed;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.Collections;
  * @version 1.1
  */
 public class Pile {
+    private static boolean maintainAspectRatio = false;
     private final static Color defaultColor = Color.BLACK;
     private int rows;
     private int cols;
@@ -37,7 +39,7 @@ public class Pile {
      * @param images {@link java.util.ArrayList} of BufferedImages
      * @throws IllegalArgumentException
      */
-    public Pile(int rows, int cols, BufferedImage[] images) throws IllegalArgumentException {
+    public Pile(int rows, int cols, BufferedImage[] images, boolean maintainAspectRatio) throws IllegalArgumentException {
         if (rows < 1 || cols < 1) {
             throw new IllegalArgumentException("Rows & columns must be 1 or greater.");
         }
@@ -50,10 +52,11 @@ public class Pile {
         this.rows = rows;
         this.cols = cols;
         this.total = rows * cols;
+        this.maintainAspectRatio = maintainAspectRatio;
 
         // get length based off first image in list
         BufferedImage baseImage = images[0];
-        this.length = Math.max(baseImage.getHeight(), baseImage.getHeight());
+        this.length = Math.max(baseImage.getWidth(), baseImage.getHeight());
 
         // create output buffer and init graphics
         this.output = new BufferedImage(this.length * cols, this.length * rows, BufferedImage.TYPE_INT_RGB);
@@ -78,7 +81,7 @@ public class Pile {
      * @see Pile#Pile(int, int, BufferedImage[])
      * @see Pile#addImage(BufferedImage)
      */
-    public Pile(int length, int rows, int cols) throws IllegalArgumentException {
+    public Pile(int length, int rows, int cols, boolean maintainAspectRatio) throws IllegalArgumentException {
         if (rows < 1 || cols < 1) {
             throw new IllegalArgumentException("Rows & columns must be 1 or greater.");
         }
@@ -92,6 +95,7 @@ public class Pile {
         this.rows = rows;
         this.cols = cols;
         this.total = rows * cols;
+        this.maintainAspectRatio = maintainAspectRatio;
 
         // create output buffer and init graphics
         this.output = new BufferedImage(this.length * cols, this.length * rows, BufferedImage.TYPE_INT_RGB);
@@ -111,7 +115,7 @@ public class Pile {
      * @throws IllegalArgumentException
      * @see Pile#Pile(int, int, BufferedImage[])
      */
-    public Pile(int length, int rows, int cols, BufferedImage[] images) throws IllegalArgumentException {
+    public Pile(int length, int rows, int cols, BufferedImage[] images, boolean maintainAspectRatio) throws IllegalArgumentException {
         if (rows < 1 || cols < 1) {
             throw new IllegalArgumentException("Rows & columns must be 1 or greater.");
         }
@@ -129,6 +133,7 @@ public class Pile {
         this.rows = rows;
         this.cols = cols;
         this.total = this.rows * this.cols;
+        this.maintainAspectRatio = maintainAspectRatio;
 
         // create output buffer and init graphics
         this.output = new BufferedImage(this.length * cols, this.length * rows, BufferedImage.TYPE_INT_RGB);
@@ -149,14 +154,16 @@ public class Pile {
      *
      * @param images {@link java.util.ArrayList} of BufferedImages
      */
-    public Pile(BufferedImage[] images) {
+    public Pile(BufferedImage[] images, boolean maintainAspectRatio) {
         if (images.length < 1) {
             throw new IllegalArgumentException("At least one image is required.");
         }
 
+        this.maintainAspectRatio = maintainAspectRatio;
+
         // get length based off first image in list
         BufferedImage baseImage = images[0];
-        this.length = Math.max(baseImage.getHeight(), baseImage.getHeight());
+        this.length = Math.max(baseImage.getWidth(), baseImage.getHeight());
 
         // get square shape
         double s = Math.sqrt(images.length);
@@ -234,7 +241,7 @@ public class Pile {
      *
      * @param wrap Whether or not to wrap
      */
-    public void updateGraphics(boolean wrap) {
+    public void updateGraphics(boolean wrap, boolean maintainAspectRatio) {
         this.clearPile();
         int imageIndex = 0;
         if (this.images.size() == this.total) {
@@ -245,7 +252,22 @@ public class Pile {
             for (int j = 0; j < cols; j++) {
                 if (wrap) {
                     // cycle through images, as in 0..10 starts back at 0
-                    this.g.drawImage(this.images.get(imageIndex), j * this.length, i * this.length, this.length, this.length, null);
+                    if (this.maintainAspectRatio) {
+                        BufferedImage target = this.images.get(imageIndex);
+                        if ((double) target.getWidth() / (double) target.getHeight() < this.length / this.length) {
+                            // taller
+                            int newWidth = this.length;
+                            int newHeight = (int) Math.floor((double) target.getWidth() * (double) this.length / (double) target.getHeight());
+                            this.g.drawImage(target, j * this.length, i * this.length, newHeight, newWidth, null);
+                        } else {
+                            // wider
+                            int newHeight = this.length;
+                            int newWidth = (int) Math.floor((double) target.getHeight() * (double) this.length / (double) target.getWidth());
+                            this.g.drawImage(target, j * this.length, i * this.length, newHeight, newWidth, null);
+                        }
+                    } else {
+                        this.g.drawImage(this.images.get(imageIndex), j * this.length, i * this.length, this.length, this.length, null);
+                    }
                     imageIndex++;
                     if (imageIndex >= this.images.size()) {
                         imageIndex = 0;
@@ -254,7 +276,22 @@ public class Pile {
                     // do not wrap, simply cycle through the available images then stop
                     imageIndex = i * cols + j;
                     if (imageIndex < this.images.size()) {
-                        this.g.drawImage(this.images.get(imageIndex), j * this.length, i * this.length, this.length, this.length, null);
+                        if (this.maintainAspectRatio) {
+                            BufferedImage target = this.images.get(imageIndex);
+                            if ((double) target.getWidth() / (double) target.getHeight() < this.length / this.length) {
+                                // taller
+                                int newWidth = this.length;
+                                int newHeight = (int) Math.floor((double) target.getWidth() * (double) this.length / (double) target.getHeight());
+                                this.g.drawImage(target, j * this.length, i * this.length, newHeight, newWidth, null);
+                            } else {
+                                // wider
+                                int newHeight = this.length;
+                                int newWidth = (int) Math.floor((double) target.getHeight() * (double) this.length / (double) target.getWidth());
+                                this.g.drawImage(target, j * this.length, i * this.length, newHeight, newWidth, null);
+                            }
+                        } else {
+                            this.g.drawImage(this.images.get(imageIndex), j * this.length, i * this.length, this.length, this.length, null);
+                        }
                     } else {
                         break;
                     }
@@ -267,7 +304,7 @@ public class Pile {
      * Shortcut for {@link Pile#updateGraphics(boolean)} defaulted to false.
      */
     public void updateGraphics() {
-        this.updateGraphics(false);
+        this.updateGraphics(false, this.maintainAspectRatio);
     }
 
     /**
@@ -327,7 +364,7 @@ public class Pile {
     public void addImage(BufferedImage image, boolean update, boolean wrap) {
         this.images.add(image);
         if (update) {
-            this.updateGraphics(wrap);
+            this.updateGraphics(wrap, this.maintainAspectRatio);
         }
     }
 
