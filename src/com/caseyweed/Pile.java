@@ -16,7 +16,7 @@ import java.util.Collections;
  * possibilities are truly limitless.
  *
  * @author Casey Weed
- * @version 1.1
+ * @version 1.2
  */
 public class Pile {
     private static boolean maintainAspectRatio = false;
@@ -37,6 +37,7 @@ public class Pile {
      * @param rows   Number of rows
      * @param cols   Number of columns
      * @param images {@link java.util.ArrayList} of BufferedImages
+     * @param maintainAspectRatio Whether or not to maintain the aspect ratio of images
      * @throws IllegalArgumentException
      */
     public Pile(int rows, int cols, BufferedImage[] images, boolean maintainAspectRatio) throws IllegalArgumentException {
@@ -77,8 +78,9 @@ public class Pile {
      * @param length Length of grid cells
      * @param rows   Number of rows
      * @param cols   Number of columns
+     * @param maintainAspectRatio Whether or not to maintain the aspect ratio of images
      * @throws IllegalArgumentException
-     * @see Pile#Pile(int, int, BufferedImage[])
+     * @see Pile#Pile(int, int, BufferedImage[], boolean)
      * @see Pile#addImage(BufferedImage)
      */
     public Pile(int length, int rows, int cols, boolean maintainAspectRatio) throws IllegalArgumentException {
@@ -111,9 +113,10 @@ public class Pile {
      * @param length Length of grid cells in pixels
      * @param rows   Number of rows
      * @param cols   Number of columns
+     * @param maintainAspectRatio Whether or not to maintain the aspect ratio of images
      * @param images {@link java.util.ArrayList} of BufferedImages
      * @throws IllegalArgumentException
-     * @see Pile#Pile(int, int, BufferedImage[])
+     * @see Pile#Pile(int, int, BufferedImage[], boolean)
      */
     public Pile(int length, int rows, int cols, BufferedImage[] images, boolean maintainAspectRatio) throws IllegalArgumentException {
         if (rows < 1 || cols < 1) {
@@ -153,6 +156,7 @@ public class Pile {
      * If there are empty rows they will be removed.
      *
      * @param images {@link java.util.ArrayList} of BufferedImages
+     * @param maintainAspectRatio Whether or not to maintain the aspect ratio of images
      */
     public Pile(BufferedImage[] images, boolean maintainAspectRatio) {
         if (images.length < 1) {
@@ -200,7 +204,7 @@ public class Pile {
     }
 
     /**
-     * Will perform the same adjustments seen here: {@link Pile#Pile(BufferedImage[])}.
+     * Will perform the same adjustments seen here: {@link Pile#Pile(BufferedImage[], boolean)}.
      * Best used after adding or removing a number of images.
      */
     public void selfAdjust() {
@@ -301,7 +305,7 @@ public class Pile {
     }
 
     /**
-     * Shortcut for {@link Pile#updateGraphics(boolean)} defaulted to false.
+     * Shortcut for {@link Pile#updateGraphics(boolean, boolean)} defaulted to false.
      */
     public void updateGraphics() {
         this.updateGraphics(false, this.maintainAspectRatio);
